@@ -1,0 +1,9 @@
+table{
+    width: 100vw;
+}
+tr{
+    border: 1px solid #ccc;   
+}
+td,th{
+    padding: 10px;
+}
