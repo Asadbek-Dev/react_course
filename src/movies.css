@@ -1,0 +1,63 @@
+.form{
+    width: 100vw;
+    height: 100vh;
+    background: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: url(https://cdn.pixabay.com/photo/2020/01/04/18/40/trees-4741364_960_720.png);
+
+}
+form{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background:#ccc;
+    border-radius: 15px;
+}
+input{
+    width: 400px;
+    height: 50px;
+    padding: 20px;
+    margin-bottom: 10px;
+    outline: none;
+    border: 1px solid  #1c22d9;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+}
+label{
+    display: flex;
+    align-self: flex-start;
+    line-height: 15px;
+    color: #1c22d9;
+}
+#button{
+    width: 400px;
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background: #1c22d9;
+}
+.logo-input{
+    display: flex;
+}
+.icon{
+    width: 50px;
+    height: 50px;
+    background: white;
+    color:  #1c22d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    border: 1px solid  #1c22d9;
+    border-radius: 5px 0 0 5px;
+}
+p{
+    margin-top: 15px;
+}
