@@ -49,7 +49,7 @@ export default class Movie_list extends Component {
     genreHandler = genre => {
         const movies = moviesDb;
         const res = movies.filter(m => m.genre === genre)
-        res.length ? this.setState({ genre, movies: res }) : this.setState({ genre, movies: moviesDb })
+        res.length ? this.setState({ genre, movies: res, currentPage: 1 }) : this.setState({ genre, movies: moviesDb })
 
     }
 

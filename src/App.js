@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Nav from './containers/Navbar/nav';
 import User from './user';
 import Form from './form';
+import Posts from './component/Posts';
 
 class App extends Component {
   render() {
@@ -13,15 +14,12 @@ class App extends Component {
         <BrowserRouter>
           <Nav />
           <Switch>
-            <Route exact path="/users">
-              <User />
-            </Route>
+            <Route exact path="/users" component={User} />
             <Route path="/movies">
               <Movie_list />
             </Route>
-            <Route path="/form">
-              <Form />
-            </Route>
+            <Route path="/form" component={Form} />
+            <Route path="/posts/:id" component={Posts} />
           </Switch>
         </BrowserRouter>
       </div>
