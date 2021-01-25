@@ -25,6 +25,7 @@ export default class Movie_list extends Component {
             pageSize: 3,
             genre: 'all',
             currentPage: 1,
+            sortType: 'asc'
         }
     }
     componentDidMount() {
@@ -52,6 +53,32 @@ export default class Movie_list extends Component {
         res.length ? this.setState({ genre, movies: res, currentPage: 1 }) : this.setState({ genre, movies: moviesDb })
 
     }
+    sortHandler = () => {
+        const { movies, sortType } = this.state;
+        const sorted = movies.sort((a, b) => {
+            const isReversed = (sortType === 'asc') ? 1 : -1;
+            return isReversed * a.title.localeCompare(b.title)
+        })
+        this.setState({ sorted: movies })
+
+    }
+    sortHandler1 = () => {
+        const { movies, sortType } = this.state;
+        const sorted = movies.sort((a, b) => {
+            const isReversed = (sortType === 'asc') ? 1 : -1;
+            return isReversed * a.genre.localeCompare(b.genre)
+        })
+        this.setState({ sorted: movies })
+
+    }
+    sortHandler2 = () => {
+        const { movies, sortType } = this.state;
+        const sorted = movies.sort((a, b) => parseFloat(a) > parseFloat(b))
+        this.setState({ sorted: movies })
+
+    }
+
+
 
     render() {
         const { movies, genres, pageSize, currentPage, genre } = this.state;
@@ -69,10 +96,12 @@ export default class Movie_list extends Component {
                     <Col>
                         <table>
                             <tr>
-                                <th>Title</th>
-                                <th>Genre</th>
+                                <th onClick={this.sortHandler}>Title</th>
+                                <th onClick={this.sortHandler1}>Genre</th>
                                 <th>Stock</th>
                                 <th>Rate</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             {updated.map((item, index) => (
                                 <tr key={index}>

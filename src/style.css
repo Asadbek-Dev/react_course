@@ -2,8 +2,11 @@ table{
     width: 80vw;
 }
 tr{
-    border: 1px solid ;   
+    border: 1px solid #eee ;   
 }
 td,th{
     padding: 10px;
+}
+tr:nth-child(2n+2){
+    background-color: #f9f9f9;
 }

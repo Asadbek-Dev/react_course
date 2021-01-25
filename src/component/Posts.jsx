@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 export default class Posts extends Component {
     state = {
         posts: [],
@@ -13,8 +12,6 @@ export default class Posts extends Component {
                 const posts = res.filter(m => m.userId == this.props.match.params.id)
                 this.setState({ posts })
             })
-
-
     }
     render() {
         const { id, posts } = this.state;
@@ -24,7 +21,7 @@ export default class Posts extends Component {
                     {posts.map((item, index) =>
                         <tr key={index} >
                             <td>{item.id}</td>
-                            <td>{item.title}</td>
+                            <td style={{ backgroundColor: '#f9f9f9', width: '98vw', border: '1px solid #eee' }}>{item.title}</td>
                         </tr>
                     )}
                 </tbody>
