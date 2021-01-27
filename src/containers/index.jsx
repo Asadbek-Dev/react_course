@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../style.css'
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
 import Qator from '../component/Qator'
 import Like from '../component/Like'
 import Dislike from '../component/Dislike'
@@ -11,6 +12,7 @@ import { Col, Row } from 'react-bootstrap'
 import Index from '../Genres'
 import Paginition from '../component/Paginition'
 import paginate from '../component/paginate';
+import _ from 'lodash'
 
 
 
@@ -25,7 +27,10 @@ export default class Movie_list extends Component {
             pageSize: 3,
             genre: 'all',
             currentPage: 1,
-            sortType: 'asc'
+            sort: {
+                name: '',
+                type: 'asc'
+            }
         }
     }
     componentDidMount() {
@@ -53,38 +58,25 @@ export default class Movie_list extends Component {
         res.length ? this.setState({ genre, movies: res, currentPage: 1 }) : this.setState({ genre, movies: moviesDb })
 
     }
-    sortHandler = () => {
-        const { movies, sortType } = this.state;
-        const sorted = movies.sort((a, b) => {
-            const isReversed = (sortType === 'asc') ? 1 : -1;
-            return isReversed * a.title.localeCompare(b.title)
-        })
-        this.setState({ sorted: movies })
+    sortHandler = (name) => {
+        const { movies, sort } = this.state;
+        let foo;
+        if (sort.name === name) {
+            foo = sort.type === 'asc' ? 'desc' : 'asc'
+        } else {
+            foo = 'asc';
+        }
+        this.setState((prevState) => ({ ...prevState, sort: { ...prevState.sort, name: name, type: foo } }));
 
     }
-    sortHandler1 = () => {
-        const { movies, sortType } = this.state;
-        const sorted = movies.sort((a, b) => {
-            const isReversed = (sortType === 'asc') ? 1 : -1;
-            return isReversed * a.genre.localeCompare(b.genre)
-        })
-        this.setState({ sorted: movies })
-
-    }
-    sortHandler2 = () => {
-        const { movies, sortType } = this.state;
-        const sorted = movies.sort((a, b) => parseFloat(a) > parseFloat(b))
-        this.setState({ sorted: movies })
-
-    }
-
 
 
     render() {
-        const { movies, genres, pageSize, currentPage, genre } = this.state;
-        updated = paginate(movies, currentPage, pageSize);
+        const { movies, genres, pageSize, currentPage, genre, sort } = this.state;
+        let sorted = paginate(movies, currentPage, pageSize);
+        updated = _.orderBy(sorted, sort.name, sort.type)
         const count = movies.length;
-        console.log(pageSize, count)
+        console.log(this.state)
 
         return (<div>
             < h4 > Showing {updated.length} movies in the database.</h4 >
@@ -96,10 +88,10 @@ export default class Movie_list extends Component {
                     <Col>
                         <table>
                             <tr>
-                                <th onClick={this.sortHandler}>Title</th>
-                                <th onClick={this.sortHandler1}>Genre</th>
-                                <th>Stock</th>
-                                <th>Rate</th>
+                                <th onClick={() => this.sortHandler("title")}>Title {sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("genre")}>Genre {sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("stock")}>Stock{sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("rate")}>Rate{sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
                                 <th></th>
                                 <th></th>
                             </tr>

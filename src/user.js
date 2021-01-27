@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
+import _ from 'lodash'
 
 export default class User extends Component {
     state = {
@@ -10,17 +12,9 @@ export default class User extends Component {
     }
 
     sortHandler = () => {
-        // const { users } = this.state;
-        // const username = users.map(item => item.name);
-        // const usernames = username.sort();
-        // console.log(usernames)
-        const { users, posts, elementId, sortType } = this.state;
-        const sorted = users.sort((a, b) => {
-            const isReversed = (sortType === 'asc') ? 1 : -1;
-            return isReversed * a.name.localeCompare(b.name)
-        })
-        this.setState({ sorted: users })
-
+        const { sortType } = this.state;
+        const value = (sortType === 'asc') ? 'desc' : 'asc';
+        this.setState({ sortType: value })
     }
 
     componentDidMount() {
@@ -34,19 +28,17 @@ export default class User extends Component {
     }
     render() {
         const { users, posts, elementId, sortType } = this.state;
-        // const sorted = users.sort((a, b) => {
-        //     const isReversed = (sortType === 'asc') ? 1 : -1;
-        //     return isReversed * a.name.localeCompare(b.name)
-        // })
+        const updated = _.orderBy(users, ['name'], sortType)
+        console.log(updated)
         return (
             <table style={{ width: '100vw' }}>
                 <thead>
-                    <th onClick={this.sortHandler}>name</th>
+                    <th onClick={this.sortHandler}>name{sortType === 'asc' ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />}</th>
                     <th>email</th>
                     <th>address</th>
                 </thead>
                 <tbody>
-                    {users.map((item, index) =>
+                    {updated.map((item, index) =>
                         <tr key={index} >
                             <td onClick={() => this.props.history.push(`/posts/${item.id}`)} style={{ border: '1px solid #eee' }}>{item.name}</td>
                             <td style={{ border: '1px solid #eee' }}>{item.email}</td>
