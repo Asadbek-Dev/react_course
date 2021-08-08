@@ -60,11 +60,11 @@ export default class Movie_list extends Component {
     }
     sortHandler = (name) => {
         const { movies, sort } = this.state;
-        let foo;
+        let foo = '';
         if (sort.name === name) {
             foo = sort.type === 'asc' ? 'desc' : 'asc'
         } else {
-            foo = 'asc';
+            foo = 'desc';
         }
         this.setState((prevState) => ({ ...prevState, sort: { ...prevState.sort, name: name, type: foo } }));
 
@@ -88,10 +88,10 @@ export default class Movie_list extends Component {
                     <Col>
                         <table>
                             <tr>
-                                <th onClick={() => this.sortHandler("title")}>Title {sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
-                                <th onClick={() => this.sortHandler("genre")}>Genre {sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
-                                <th onClick={() => this.sortHandler("stock")}>Stock{sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
-                                <th onClick={() => this.sortHandler("rate")}>Rate{sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("title")}>Title {this.state.sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("genre")}>Genre {this.state.sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("stock")}>Stock{this.state.sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
+                                <th onClick={() => this.sortHandler("rate")}>Rate{this.state.sort.type === 'asc' ? <AiOutlineArrowUp /> : <AiOutlineArrowDown />}</th>
                                 <th></th>
                                 <th></th>
                             </tr>
